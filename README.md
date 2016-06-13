@@ -1,11 +1,12 @@
-# A2016 Pattern Recognition Term Project 
-- compare two algorithms: ANN and SVM
+# 2016 Pattern Recognition Term Project 
+compare two algorithms: ANN and SVM
 ---
                                                              Hyungwon Yang
                                                                SungSoo Kim
                                                                 2016.06.05
 ### Contacts
-hyung8758@gmail.com
+1. hyung8758@gmail.com
+2. sskim2581@gmail.com
 
 ### OS Compatibility
 - Stable: Mac OSX
