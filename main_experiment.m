@@ -1,25 +1,25 @@
 % 2016 Pattern Recognition Term Project 
 %
 %                                                             Hyungwon Yang
-%                                                               SungSoo Kim
+%                                                               SungSoo kim
 %                                                                2016.06.05
 %
 % OS compatibility test:
-% Tested successful:
+% Tested successfully:
 % - Mac OSX, Windows
 % Not tested: 
 % - Linux
 %
 % Error Reports:
 % 1. This script is tested on Matlab ver.R2016a. libsvm compiling error 
-%    is reported On R2015b.
+%    is reported on R2015b.
 % 2. If gunzip related error occurred, please restart the download_data 
 %    function. Error can be occurred when the data has not been 
 %    downloaded completely. Check your internet connection too.
 % 3. When you run the sections of this script, make sure that your current
-%    path is located in ~/project_script. If you run the sections when you
-%    inside of other folders such as 'data', or 'functions', the script
-%    might give you an error. 
+%    path is located in ~/project_script. If you run the sections when the
+%    current path is located in the other folders such as 'data', 
+%    or 'functions', the script might give you an error. 
 %
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -122,23 +122,23 @@ mnist_zca_net.layers{1}.transferFcn = 'tansig';
 mnist_zca_net.layers{2}.transferFcn = 'softmax';
 
 % Training data. (validation and testing is included)
-% fprintf('Training 3 types of data by ANN.\nTraining 1st data... ')
- [mnist_net, mnist_accuracy] = ANNtrain(mnist_net,mnist_input,mnist_target);
-% fprintf('finished.\nTraining 2nd data... ')
-% [mnist_hog_net, mnist_hog_accuracy] = ANNtrain(mnist_hog_net,mnist_hog_input,mnist_target);
-% fprintf('finished.\nTraining 3rd data... ')
-% [mnist_zca_net, mnist_zca_accuracy] = ANNtrain(mnist_zca_net,mnist_zca_input,mnist_target);
-% fprintf('finished.\n')
-% 
-% % Save the results.
-% fprintf('Saving the results.\n')
-% result.mnist = {mnist_net,mnist_accuracy};
-% result.mnist_hog = {mnist_hog_net,mnist_hog_accuracy};
-% result.mnist_zca = {mnist_zca_net,mnist_zca_accuracy};
-% 
-% save('MNIST_ANN_result','result')
-% fprintf('##### MNIST ANN datasets were trained successfully. #####\n')
-% clear; close all;
+fprintf('Training 3 types of data by ANN.\nTraining 1st data... ')
+[mnist_net, mnist_accuracy] = ANNtrain(mnist_net,mnist_input,mnist_target);
+fprintf('finished.\nTraining 2nd data... ')
+[mnist_hog_net, mnist_hog_accuracy] = ANNtrain(mnist_hog_net,mnist_hog_input,mnist_target);
+fprintf('finished.\nTraining 3rd data... ')
+[mnist_zca_net, mnist_zca_accuracy] = ANNtrain(mnist_zca_net,mnist_zca_input,mnist_target);
+fprintf('finished.\n')
+
+% Save the results.
+fprintf('Saving the results.\n')
+result.mnist = {mnist_net,mnist_accuracy};
+result.mnist_hog = {mnist_hog_net,mnist_hog_accuracy};
+result.mnist_zca = {mnist_zca_net,mnist_zca_accuracy};
+
+save('MNIST_ANN_result','result')
+fprintf('##### MNIST ANN datasets were trained successfully. #####\n')
+clear; close all;
 
 %% SVM
 % When you run the libsvm code, you need to run it under the 'matlab_svm'
