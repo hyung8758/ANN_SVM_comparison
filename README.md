@@ -1,5 +1,6 @@
 # A2016 Pattern Recognition Term Project 
 - compare two algorithms: ANN and SVM
+---
                                                              Hyungwon Yang
                                                                SungSoo Kim
                                                                 2016.06.05
