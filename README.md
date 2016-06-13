@@ -10,7 +10,7 @@ compare two algorithms: ANN and SVM
 
 ### OS Compatibility
 - Stable: Mac OSX
-- Unstable: Window (Running code on Window is possible but error could be occurred.)
+- Unstable: Windows (Running code on Windows is possible but error could be occurred.)
 - Not tested on Linux
 
 
