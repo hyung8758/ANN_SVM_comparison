@@ -315,7 +315,7 @@ fprintf('finished.\nTraining 4th data... ')
 [cifar10_zca_net, cifar10_zca_accuracy] = ANNtrain(cifar10_zca_net,cifar10_zca_input,cifar10_target);
 fprintf('finished.\n')
 
-Save the results.
+% Save the results.
 fprintf('Saving the results.\n')
 result.cifar10 = {cifar10_net, cifar10_accuracy};
 result.cifar10_gray = {cifar10_gray_net, cifar10_gray_accuracy};
