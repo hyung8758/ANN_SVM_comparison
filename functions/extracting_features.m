@@ -4,19 +4,19 @@
 %                                                             Hyungwon Yang
 %                                                                2016.05.22
 %                                                                 EMCS labs
-%
+
 % Feature extraction of training and testing datasets.
 % Two datasets are considered to be trained and the features of each 
 % dataset will be extracted with a few algorithms.
 % 1. MNIST dataset
 %   - Original: Gray scaled and untouched original dataset.
 %   - HOG     : HOG feature dataset. 
-%   - ZCA     : ZCA feature dataset.
+%   - ZCA     : ZCA normalized feature dataset.
 % 2. CIFAR 10 dataset
 %   - Original: 3 dimensional (RGB) color map dataset.
 %   - gray    : Gray-scaled dataset.
 %   - HOG     : HOG feature dataset. 
-%   - ZCA     : ZCA feature dataset.
+%   - ZCA     : ZCA normalized feature dataset.
 
 
 %% Direction
@@ -70,11 +70,11 @@ save('MNIST_hog_input','mnist_hog_input')
 clear pre_box tmp
 fprintf('   Process complete.\n')
 
-%% 2. ZCA feature dataset.
+%% 2. ZCA normalized dataset.
 
-% Extract features and save them as variables.
+% Extract normalized features and save them as variables.
 fprintf('Start up: zca feature extraction...\n')
-fprintf('   Extracing zca features...\n')
+fprintf('   Extracing zca...\n')
 mnist_zca_input = whiten(mnist_input);
 
 % Save it as variables.
@@ -143,11 +143,11 @@ clear tmp
 save('CIFAR10_hog_input','cifar10_hog_input')
 fprintf('   Process complete.\n')
 
-%% 3. ZCA feature dataset.
+%% 3. ZCA normalized dataset.
 
-% Extract features and save them as variables.
+% Extract normalized features and save them as variables.
 fprintf('Start up: zca feature extraction...\n')
-fprintf('   Extracing zca features...\n')
+fprintf('   Extracing zca...\n')
 cifar10_zca_input = whiten(cifar10_gray_input);
 
 save('CIFAR10_zca_input','cifar10_zca_input')

@@ -1,4 +1,11 @@
 #!/bin/bash
+# 2016, spring semester team project.
+# matlab_ann
+#
+#                                                             Hyungwon Yang
+#                                                                2016.06.10
+#                                                                 EMCS labs
+
 
 # libSVM data training.
 # for linux and mac osx 
