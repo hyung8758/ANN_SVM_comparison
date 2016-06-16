@@ -5,7 +5,7 @@
 # 1. Comparing two algorithms: ANN and SVM
 # 2. Comparing the results driven by different data features.
 #                                                                   Hyungwon Yang
-#                                                                     SungSoo kim
+#                                                                     SungSoo Kim
 #                                                                      2016.06.05
 
 # Windows

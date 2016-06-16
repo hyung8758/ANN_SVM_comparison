@@ -1,7 +1,7 @@
 % 2016 Pattern Recognition Term Project 
 %
 %                                                             Hyungwon Yang
-%                                                               SungSoo kim
+%                                                               SungSoo Kim
 %                                                                2016.06.05
 %
 % OS compatibility test:
