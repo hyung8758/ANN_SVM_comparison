@@ -68,8 +68,8 @@ for file = 1:2
 end
 
 % Save the datasets.
-save('MNIST_input','mnist_input')
-save('MNIST_target','mnist_target')
+save('mnist_input','mnist_input')
+save('mnist_target','mnist_target')
 fprintf('MNIST data preprocessing is completed.\n')
 clear
 
@@ -100,9 +100,9 @@ cifar10_target = double(cifar10_target);
 
 % save the datasets.
 cd ../
-save('CIFAR10_input','cifar10_input')
-save('CIFAR10_target','cifar10_target')
-fprintf('CIFAR10 data preprocessing is completed.\n')
+save('cifar10_input','cifar10_input')
+save('cifar10_target','cifar10_target')
+fprintf('cifar10 data preprocessing is completed.\n')
 
 % Remove files excepts datasets.
 warning off

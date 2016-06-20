@@ -44,7 +44,7 @@ end
 cd data
 fprintf('\n##########   MNIST   ##########\n\n')
 fprintf('MNIST datasets are imported.\n')
-load MNIST_input
+load mnist_input
 
 %% 1. HOG feature dataset.
 % Pre_assignment.
@@ -66,7 +66,7 @@ end
 tmp = [];
 
 % Save it as variables.
-save('MNIST_hog_input','mnist_hog_input')
+save('mnist_hog_input','mnist_hog_input')
 clear pre_box tmp
 fprintf('   Process complete.\n')
 
@@ -78,7 +78,7 @@ fprintf('   Extracing zca...\n')
 mnist_zca_input = whiten(mnist_input);
 
 % Save it as variables.
-save('MNIST_zca_input','mnist_zca_input')
+save('mnist_zca_input','mnist_zca_input')
 fprintf('   Process complete.\n')
 fprintf('### MNIST dataset feature extraction has been finished.### \n\n')
 
@@ -92,7 +92,7 @@ clear; close all;
 % Loading dataset.
 fprintf('\n##########   CIFAR10   ##########\n\n')
 fprintf('CIFAR10 datasets are imported.\n')
-load CIFAR10_input
+load cifar10_input
 
 %% 1. Gray-scaled dataset.
 
@@ -116,7 +116,7 @@ end
 clear tmp
 
 % Save it as variables.
-save('CIFAR10_gray_input','cifar10_gray_input')
+save('cifar10_gray_input','cifar10_gray_input')
 fprintf('Gray-scaled CIFAR10 datasets are saved.\n')
 fprintf('   Process complete.\n')
 
@@ -140,7 +140,7 @@ end
 clear tmp
 
 % Save it as variables.
-save('CIFAR10_hog_input','cifar10_hog_input')
+save('cifar10_hog_input','cifar10_hog_input')
 fprintf('   Process complete.\n')
 
 %% 3. ZCA normalized dataset.
@@ -150,7 +150,7 @@ fprintf('Start up: zca feature extraction...\n')
 fprintf('   Extracing zca...\n')
 cifar10_zca_input = whiten(cifar10_gray_input);
 
-save('CIFAR10_zca_input','cifar10_zca_input')
+save('cifar10_zca_input','cifar10_zca_input')
 fprintf('   Process complete.\n')
 fprintf('### CIFAR10 dataset feature extraction has been finished. ###\n\n')
 

@@ -26,168 +26,65 @@ CURRENT_PATH=/home/hyung8758/libsvm
 MODEL_PATH=$CURRENT_PATH/models
 DATA_PATH=$CURRENT_PATH/data
 
-# Setting options
-opt_1="-t 2"
-opt_2="-t 2 -b 1"
-opt_3="-t 2 -s 1"
-opt_4="-t 2 -c 5 -g 0.5 -e 0.01"
-opt_5="-t 1 -d 4"
-opt_6="-t 1 -d 5"
-opt_7="-t 1 -d 6"
-opt_8="-t 1 -d 4 -b 1"
+# Setting 8 options.
+options="-t 2,\
+-t 2 -b 1,\
+-t 2 -s 1,\
+-t 2 -c 5 -g 0.5 -e 0.01,\
+-t 1 -d 4,\
+-t 1 -d 5,\
+-t 1 -d 6,\
+-t 1 -d 4 -b 1"
 
-# Nevigate to model directory
+# Nevigate to model directory.
 cd $CURRENT_PATH
 mkdir models
 cd $MODEL_PATH
+
+# make model directories.
 for ((x=1;x<=8;x++)); do
     mkdir model_$x
 done
 
-# MNIST original
+for x in {1..8};do
+echo ===========
+tmp_var=$(echo $options | sed -n 1'p' | tr ',' '\n'| sed -n ${x}p)
+done
+
+
+# MNIST original.
 echo =======================
-echo Training MNIST datasets
+echo  Running SVM models...
 echo =======================
 
 for ((x=1;x<=8;x++)); do
 
-    # Train 8 types of model
+    # Train 8 types of model.
     cd $MODEL_PATH"/model_"$x
-    nohup $CURRENT_PATH/svm-train $opt_$x $DATA_PATH/MNIST_input_train.txt $MODEL_PATH"/model_"$x/$x_mnist.model &
+    tmp_var=$(echo $options | sed -n 1'p' | tr ',' '\n'| sed -n ${x}p)
 
+    # MNIST_origianl
+    nohup $CURRENT_PATH/svm-train tmp_var $DATA_PATH/mnist_input_train.txt $MODEL_PATH"/model_"$x/$x"_mnist.model" &
 
+    # MNIST_hog
+    nohup $CURRENT_PATH/svm-train tmp_var $DATA_PATH/mnist_hog_input_train.txt $MODEL_PATH"/model_"$x/$x"_mnist_hog.model" &
 
+    # MNIST_zca
+    nohup $CURRENT_PATH/svm-train tmp_var $DATA_PATH/mnist_zca_input_train.txt $MODEL_PATH"/model_"$x/$x"_mnist_zca.model" &
 
-# 1.
-cd $MODEL_PATH"/model_1"
-nohup $CURRENT_PATH/svm-train -t 2 $DATA_PATH/MNIST_hog_input_train.txt $MODEL_PATH"/model_1/"1st_mnist_hog.model &
+    # CIFAR10_origianl
+    nohup $CURRENT_PATH/svm-train tmp_var $DATA_PATH/cifar10_input_train.txt $MODEL_PATH"/model_"$x/$x"_cifar10.model" &
 
-# 2.
-cd $MODEL_PATH"/model_2"
-nohup $CURRENT_PATH/svm-train -t 2 -b 1 $DATA_PATH/MNIST_hog_input_train.txt $MODEL_PATH"/model_2/"2nd_mnist_hog.model &
+    # CIFAR10_gray
+    nohup $CURRENT_PATH/svm-train tmp_var $DATA_PATH/cifar10_gray_input_train.txt $MODEL_PATH"/model_"$x/$x"_cifar10_gray.model" &
 
-# 3.
-cd $MODEL_PATH"/model_3"
-nohup $CURRENT_PATH/svm-train -t 2 -s 1 $DATA_PATH/MNIST_hog_input_train.txt $MODEL_PATH"/model_3/"3rd_mnist_hog.model &
+    # CIFAR10_hog
+    nohup $CURRENT_PATH/svm-train tmp_var $DATA_PATH/cifar10_hog_input_train.txt $MODEL_PATH"/model_"$x/$x"_cifar10_hog.model" &
 
-# 4.
-cd $MODEL_PATH"/model_4"
-nohup $CURRENT_PATH/svm-train -t 2 -c 2.8 -g $DATA_PATH/MNIST_hog_input_train.txt $MODEL_PATH"/model_4/"4th_mnist_hog.model &
+    # CIFAR10_zca
+    nohup $CURRENT_PATH/svm-train tmp_var $DATA_PATH/cifar10_zca_input_train.txt $MODEL_PATH"/model_"$x/$x"_cifar10_zca.model" &
+done
 
-# 5.
-cd $MODEL_PATH"/model_5"
-nohup $CURRENT_PATH/svm-train -t 2 $DATA_PATH/MNIST_hog_input_train.txt $MODEL_PATH"/model_5/"5th_mnist_hog.model &
-
-# 6.
-cd $MODEL_PATH"/model_6"
-nohup $CURRENT_PATH/svm-train -t 2 $DATA_PATH/MNIST_hog_input_train.txt $MODEL_PATH"/model_6/"6th_mnist_hog.model &
-
-# 7.
-cd $MODEL_PATH"/model_7"
-nohup $CURRENT_PATH/svm-train -t 2 $DATA_PATH/MNIST_hog_input_train.txt $MODEL_PATH"/model_7/"7th_mnist_hog.model &
-
-# 8.
-cd $MODEL_PATH"/model_8"
-nohup $CURRENT_PATH/svm-train -t 2 $DATA_PATH/MNIST_hog_input_train.txt $MODEL_PATH"/model_8/"8th_mnist_hog.model &
-
-
-# MNIST hog
-# 1. 
-cd model/model_1
-nohup ../../svm-train -t 2 ../data/MNIST_hog_input_train.txt 1st_mnist_hog.model &
-
-# 2.
-cd ../model_3
-nohup ../../svm-train -t 2 -s 1 ../data/MNIST_hog_input_train.txt 3rd_mnist_hog.model &
-
-# 3.
-cd ../model_3
-nohup ../../svm-train -t 2 -s 1 ../data/MNIST_hog_input_train.txt 3rd_mnist_hog.model &
-
-# 4.
-cd ../model_3
-nohup ../../svm-train -t 2 -s 1 ../data/MNIST_hog_input_train.txt 3rd_mnist_hog.model &
-
-# 5.
-cd ../model_5
-nohup ../../svm-train -t 1 -d 4 ../data/MNIST_hog_input_train.txt 5th_mnist_hog.model &
-
-# 6.
-cd ../model_5
-nohup ../../svm-train -t 1 -d 4 ../data/MNIST_hog_input_train.txt 5th_mnist_hog.model &
-
-# 7.
-cd ../model_5
-nohup ../../svm-train -t 1 -d 4 ../data/MNIST_hog_input_train.txt 5th_mnist_hog.model &
-
-# 8.
-cd ../model_5
-nohup ../../svm-train -t 1 -d 4 ../data/MNIST_hog_input_train.txt 5th_mnist_hog.model &
-
-
-# MNIST zca
-# 1.
-cd model/model_1
-nohup ../../svm-train -t 2 ../data/MNIST_zca_input_train.txt 1st_mnist_zca.model &
-
-# 3
-cd ../model_3
-nohup ../../svm-train -t 2 -s 1 ../data/MNIST_zca_input_train.txt 3rd_mnist_zca.model &
-
-# 5
-cd ../model_5
-nohup ../../svm-train -t 1 -d 4 ../data/MNIST_zca_input_train.txt 5th_mnist_zca.model &
-
-##################################
-# CIFAR10 original
-# 1.
-cd model/model_1
-nohup ../../svm-train -t 2 ../data/cifar10_input_train.txt 1st_cifar10.model &
-
-# 3.
-cd ../model_3
-nohup ../../svm-train -t 2 -s 1 ../data/cifar10_input_train.txt 3rd_cifar10.model &
-
-# 5.
-cd ../model_5
-nohup ../../svm-train -t 1 -d 4 ../data/cifar10_input_train.txt 5th_cifar10.model &
-
-# CIFAR10 gray-scaled
-# 1.
-cd model/model_1
-nohup ../../svm-train -t 2 ../data/cifar10_gray_input_train.txt 1st_cifar10_gray.model &
-
-# 3.
-cd ../model_3
-nohup ../../svm-train -t 2 -s 1 ../data/cifar10_gray_input_train.txt 3rd_cifar10_gray.model &
-
-# 5.
-cd ../model_5
-nohup ../../svm-train -t 1 -d 4 ../data/cifar10_gray_input_train.txt 5th_cifar10_gray.model &
-
-# CIFAR10 hog
-# 1.
-cd model/model_1
-nohup ../../svm-train -t 2 ../data/cifar10_hog_input_train.txt 1st_cifar10_hog.model &
-
-# 3.
-cd ../model_3
-nohup ../../svm-train -t 2 -s 1 ../data/cifar10_hog_input_train.txt 3rd_cifar10_hog.model &
-
-# 5.
-cd ../model_5
-nohup ../../svm-train -t 1 -d 4 ../data/cifar10_hog_input_train.txt 5th_cifar10_hog.model &
-
-# CIFAR10 zca
-# 1.
-cd model/model_1
-nohup ../../svm-train -t 2 ../data/cifar10_zca_input_train.txt 1st_cifar10_zca.model &
-
-# 3.
-cd ../model_3
-nohup ../../svm-train -t 2 -s 1 ../data/cifar10_zca_input_train.txt 3rd_cifar10_zca.model &
-
-# 5.
-cd ../model_5
-nohup ../../svm-train -t 1 -d 4 ../data/cifar10_zca_input_train.txt 5th_cifar10_zca.model &
-
+echo ====================================================================
+echo  Setting up finished... Please wait until all the training is over.
+echo ====================================================================

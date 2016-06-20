@@ -22,6 +22,14 @@
 %    or 'functions', the script might give you an error. 
 %
 
+% If you cannot run SVM through this main_experiment script, then follow
+% the direction belows.
+% 1. Go functions folder.
+% 2. Run toLibsvmForm then you will see that text files are generated. This
+%    text files will be trained in c-code type libsvm.
+% 3. Open libsvm_train.sh and run this in terminal or linux like command
+%    line. (before running it set up the path variables)
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% (1) Data Preparation %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -69,10 +77,10 @@ fprintf('##### SVM was downloaded successfully. #####\n')
 
 % Importing data.
 fprintf('Importing MNIST data\n')
-load MNIST_input
-load MNIST_target
-load MNIST_hog_input
-load MNIST_zca_input
+load mnist_input
+load mnist_target
+load mnist_hog_input
+load mnist_zca_input
 
 % Data resetting for training.
 mnist_input = mnist_input';
@@ -125,20 +133,20 @@ mnist_zca_net.layers{2}.transferFcn = 'softmax';
 fprintf('Training 3 types of data by ANN.\nTraining 1st data... ')
 [mnist_net, mnist_accuracy] = ANNtrain(mnist_net,mnist_input,mnist_target);
 fprintf('finished.\nTraining 2nd data... ')
-% [mnist_hog_net, mnist_hog_accuracy] = ANNtrain(mnist_hog_net,mnist_hog_input,mnist_target);
-% fprintf('finished.\nTraining 3rd data... ')
-% [mnist_zca_net, mnist_zca_accuracy] = ANNtrain(mnist_zca_net,mnist_zca_input,mnist_target);
-% fprintf('finished.\n')
-% 
-% % Save the results.
-% fprintf('Saving the results.\n')
-% result.mnist = {mnist_net,mnist_accuracy};
-% result.mnist_hog = {mnist_hog_net,mnist_hog_accuracy};
-% result.mnist_zca = {mnist_zca_net,mnist_zca_accuracy};
-% 
-% save('MNIST_ANN_result','result')
-% fprintf('##### MNIST ANN datasets were trained successfully. #####\n')
-% clear; close all;
+[mnist_hog_net, mnist_hog_accuracy] = ANNtrain(mnist_hog_net,mnist_hog_input,mnist_target);
+fprintf('finished.\nTraining 3rd data... ')
+[mnist_zca_net, mnist_zca_accuracy] = ANNtrain(mnist_zca_net,mnist_zca_input,mnist_target);
+fprintf('finished.\n')
+
+% Save the results.
+fprintf('Saving the results.\n')
+result.mnist = {mnist_net,mnist_accuracy};
+result.mnist_hog = {mnist_hog_net,mnist_hog_accuracy};
+result.mnist_zca = {mnist_zca_net,mnist_zca_accuracy};
+
+save('MNIST_ANN_result','result')
+fprintf('##### MNIST ANN datasets were trained successfully. #####\n')
+clear; close all;
 
 %% SVM
 % When you run the libsvm code, you need to run it under the 'matlab_svm'
@@ -147,10 +155,10 @@ fprintf('finished.\nTraining 2nd data... ')
 
 % Imporing data.
 fprintf('Importing MNIST data.\n')
-load MNIST_input
-load MNIST_target
-load MNIST_hog_input
-load MNIST_zca_input
+load mnist_input
+load mnist_target
+load mnist_hog_input
+load mnist_zca_input
 
 % Parameter settings.
 fprintf('Organizing data and parameters.\n')
@@ -158,7 +166,7 @@ train_num = 60000;
 test_num = 10000;
 
 % First model parameters: mnist_original
-sp01.name = 'MNIST_input';
+sp01.name = 'mnist_input';
 sp01.train_input = mnist_input(1:train_num,:);
 sp01.train_target = mnist_target(1:train_num,:);
 sp01.test_input = mnist_input(train_num+1:train_num+test_num,:);
@@ -166,7 +174,7 @@ sp01.test_target = mnist_target(train_num+1:train_num+test_num,:);
 sp01.option = '-t 2';
 
 % mnist_hog
-sp11.name = 'MNIST_hog_input';
+sp11.name = 'mnist_hog_input';
 sp11.train_input = mnist_hog_input(1:train_num,:);
 sp11.train_target = mnist_target(1:train_num,:);
 sp11.test_input = mnist_hog_input(train_num+1:train_num+test_num,:);
@@ -174,7 +182,7 @@ sp11.test_target = mnist_target(train_num+1:train_num+test_num,:);
 sp11.option = '-t 2';
 
 % mnist_zca
-sp21.name = 'MNIST_zca_iuput';
+sp21.name = 'mnist_zca_iuput';
 sp21.train_input = mnist_zca_input(1:train_num,:);
 sp21.train_target = mnist_target(1:train_num,:);
 sp21.test_input = mnist_zca_input(train_num+1:train_num+test_num,:);
@@ -182,7 +190,7 @@ sp21.test_target = mnist_target(train_num+1:train_num+test_num,:);
 sp21.option = '-t 2';
 
 % Second model parameters: mnist_original
-sp02.name = 'MNIST_input';
+sp02.name = 'mnist_input';
 sp02.train_input = mnist_input(1:train_num,:);
 sp02.train_target = mnist_target(1:train_num,:);
 sp02.test_input = mnist_input(train_num+1:train_num+test_num,:);
@@ -190,7 +198,7 @@ sp02.test_target = mnist_target(train_num+1:train_num+test_num,:);
 sp02.option = '-t 1 -d 4';
 
 % mnist_hog
-sp12.name = 'MNIST_hog_input';
+sp12.name = 'mnist_hog_input';
 sp12.train_input = mnist_hog_input(1:train_num,:);
 sp12.train_target = mnist_target(1:train_num,:);
 sp12.test_input = mnist_hog_input(train_num+1:train_num+test_num,:);
@@ -198,7 +206,7 @@ sp12.test_target = mnist_target(train_num+1:train_num+test_num,:);
 sp12.option = '-t 1 -d 4';
 
 % mnist_zca
-sp22.name = 'MNIST_zca_input';
+sp22.name = 'mnist_zca_input';
 sp22.train_input = mnist_zca_input(1:train_num,:);
 sp22.train_target = mnist_target(1:train_num,:);
 sp22.test_input = mnist_zca_input(train_num+1:train_num+test_num,:);
@@ -241,11 +249,11 @@ clear; close all;
 
 % Importing data.
 fprintf('Importing CIFAR10 data\n')
-load CIFAR10_input
-load CIFAR10_target
-load CIFAR10_gray_input
-load CIFAR10_hog_input
-load CIFAR10_zca_input
+load cifar10_input
+load cifar10_target
+load cifar10_gray_input
+load cifar10_hog_input
+load cifar10_zca_input
 
 % Data resetting for training.
 fprintf('Organizing data and parameters.\n')
@@ -333,11 +341,11 @@ clear; close all;
 
 % Importing data.
 fprintf('Importing CIFAR10 data\n')
-load CIFAR10_input
-load CIFAR10_target
-load CIFAR10_gray_input
-load CIFAR10_hog_input
-load CIFAR10_zca_input
+load cifar10_input
+load cifar10_target
+load cifar10_gray_input
+load cifar10_hog_input
+load cifar10_zca_input
 
 % Parameter settings.
 fprintf('Organizing data and parameters.\n')
@@ -346,7 +354,7 @@ test_num = 10000;
 
 % First model parameters.
 % cifar10_original
-sp01.name = 'CIFAR10_input';
+sp01.name = 'cifar10_input';
 sp01.train_input = cifar10_input(1:train_num,:);
 sp01.train_target = cifar10_target(1:train_num,:);
 sp01.test_input = cifar10_input(train_num+1:train_num+test_num,:);
@@ -354,7 +362,7 @@ sp01.test_target = cifar10_target(train_num+1:train_num+test_num,:);
 sp01.option = '-t 2';
 
 % cifar10_gray
-sp11.name = 'CIFAR10_gary_input';
+sp11.name = 'cifar10_gary_input';
 sp11.train_input = cifar10_gray_input(1:train_num,:);
 sp11.train_target = cifar10_target(1:train_num,:);
 sp11.test_input = cifar10_gray_input(train_num+1:train_num+test_num,:);
@@ -362,7 +370,7 @@ sp11.test_target = cifar10_target(train_num+1:train_num+test_num,:);
 sp11.option = '-t 2';
 
 % cifar10_hog
-sp21.name = 'CIFAR10_hog_input';
+sp21.name = 'cifar10_hog_input';
 sp21.train_input = cifar10_hog_input(1:train_num,:);
 sp21.train_target = cifar10_target(1:train_num,:);
 sp21.test_input = cifar10_hog_input(train_num+1:train_num+test_num,:);
@@ -370,7 +378,7 @@ sp21.test_target = cifar10_target(train_num+1:train_num+test_num,:);
 sp21.option = '-t 2';
 
 % cifar10_zca
-sp31.name = 'CIFAR10_zca_input';
+sp31.name = 'cifar10_zca_input';
 sp31.train_input = cifar10_zca_input(1:train_num,:);
 sp31.train_target = cifar10_target(1:train_num,:);
 sp31.test_input = cifar10_zca_input(train_num+1:train_num+test_num,:);
@@ -380,7 +388,7 @@ sp31.option = '-t 2';
 
 % Second model parameters.
 % cifar10_original
-sp02.name = 'CIFAR10_input';
+sp02.name = 'cifar10_input';
 sp02.train_input = cifar10_input(1:train_num,:);
 sp02.train_target = cifar10_target(1:train_num,:);
 sp02.test_input = cifar10_input(train_num+1:train_num+test_num,:);
@@ -388,7 +396,7 @@ sp02.test_target = cifar10_target(train_num+1:train_num+test_num,:);
 sp02.option = '-t 1 -d 4';
 
 % cifar10_gray
-sp12.name = 'CIFAR10_gary_input';
+sp12.name = 'cifar10_gary_input';
 sp12.train_input = cifar10_gray_input(1:train_num,:);
 sp12.train_target = cifar10_target(1:train_num,:);
 sp12.test_input = cifar10_gray_input(train_num+1:train_num+test_num,:);
@@ -396,7 +404,7 @@ sp12.test_target = cifar10_target(train_num+1:train_num+test_num,:);
 sp12.option = '-t 1 -d 4';
 
 % cifar10_hog
-sp22.name = 'CIFAR10_hog_input';
+sp22.name = 'cifar10_hog_input';
 sp22.train_input = cifar10_hog_input(1:train_num,:);
 sp22.train_target = cifar10_target(1:train_num,:);
 sp22.test_input = cifar10_hog_input(train_num+1:train_num+test_num,:);
@@ -404,7 +412,7 @@ sp22.test_target = cifar10_target(train_num+1:train_num+test_num,:);
 sp22.option = '-t 1 -d 4';
 
 % cifar10_zca
-sp32.name = 'CIFAR10_zca_input';
+sp32.name = 'cifar10_zca_input';
 sp32.train_input = cifar10_zca_input(1:train_num,:);
 sp32.train_target = cifar10_target(1:train_num,:);
 sp32.test_input = cifar10_zca_input(train_num+1:train_num+test_num,:);
