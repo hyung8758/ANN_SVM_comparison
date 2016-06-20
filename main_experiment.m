@@ -125,20 +125,20 @@ mnist_zca_net.layers{2}.transferFcn = 'softmax';
 fprintf('Training 3 types of data by ANN.\nTraining 1st data... ')
 [mnist_net, mnist_accuracy] = ANNtrain(mnist_net,mnist_input,mnist_target);
 fprintf('finished.\nTraining 2nd data... ')
-[mnist_hog_net, mnist_hog_accuracy] = ANNtrain(mnist_hog_net,mnist_hog_input,mnist_target);
-fprintf('finished.\nTraining 3rd data... ')
-[mnist_zca_net, mnist_zca_accuracy] = ANNtrain(mnist_zca_net,mnist_zca_input,mnist_target);
-fprintf('finished.\n')
-
-% Save the results.
-fprintf('Saving the results.\n')
-result.mnist = {mnist_net,mnist_accuracy};
-result.mnist_hog = {mnist_hog_net,mnist_hog_accuracy};
-result.mnist_zca = {mnist_zca_net,mnist_zca_accuracy};
-
-save('MNIST_ANN_result','result')
-fprintf('##### MNIST ANN datasets were trained successfully. #####\n')
-clear; close all;
+% [mnist_hog_net, mnist_hog_accuracy] = ANNtrain(mnist_hog_net,mnist_hog_input,mnist_target);
+% fprintf('finished.\nTraining 3rd data... ')
+% [mnist_zca_net, mnist_zca_accuracy] = ANNtrain(mnist_zca_net,mnist_zca_input,mnist_target);
+% fprintf('finished.\n')
+% 
+% % Save the results.
+% fprintf('Saving the results.\n')
+% result.mnist = {mnist_net,mnist_accuracy};
+% result.mnist_hog = {mnist_hog_net,mnist_hog_accuracy};
+% result.mnist_zca = {mnist_zca_net,mnist_zca_accuracy};
+% 
+% save('MNIST_ANN_result','result')
+% fprintf('##### MNIST ANN datasets were trained successfully. #####\n')
+% clear; close all;
 
 %% SVM
 % When you run the libsvm code, you need to run it under the 'matlab_svm'
@@ -344,7 +344,8 @@ fprintf('Organizing data and parameters.\n')
 train_num = 50000;
 test_num = 10000;
 
-% First model parameters: cifar10_original
+% First model parameters.
+% cifar10_original
 sp01.name = 'CIFAR10_input';
 sp01.train_input = cifar10_input(1:train_num,:);
 sp01.train_target = cifar10_target(1:train_num,:);
@@ -377,7 +378,8 @@ sp31.test_target = cifar10_target(train_num+1:train_num+test_num,:);
 sp31.option = '-t 2';
 
 
-% Second model parameters: cifar10_original
+% Second model parameters.
+% cifar10_original
 sp02.name = 'CIFAR10_input';
 sp02.train_input = cifar10_input(1:train_num,:);
 sp02.train_target = cifar10_target(1:train_num,:);

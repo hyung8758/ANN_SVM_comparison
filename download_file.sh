@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# A2016 Pattern Recognition Term Project
+# 2016 Pattern Recognition Term Project
 # Main Goals
 # 1. Comparing two algorithms: ANN and SVM
 # 2. Comparing the results driven by different data features.
